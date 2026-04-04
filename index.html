@@ -29,5 +29,16 @@
 </head>
 <body>
     <iframe src="https://script.google.com/macros/s/AKfycbxUkj-y3mppSeFACvJ-MVCELHw7P1VyFaCabxpj8q16UIL-SQaKO8ReoW23OuyuOGaH/exec"></iframe>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then((reg) => console.log('Service Worker berhasil didaftarkan!', reg.scope))
+            .catch((err) => console.log('Service Worker gagal didaftarkan:', err));
+        });
+      }
+    </script>
+    
 </body>
 </html>
