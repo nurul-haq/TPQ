@@ -1,0 +1,21 @@
+{
+  "name": "TPQ Nurul Haq",
+  "short_name": "TPQ Online",
+  "description": "Aplikasi Portal TPQ Nurul Haq Pasuruan",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#064e3b",
+  "theme_color": "#009688",
+  "icons": [
+    {
+      "src": "https://drive.google.com/thumbnail?id=1CsPekD3P5yxg6h2oedLvAcU_Qhxnjm43&sz=w192",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://drive.google.com/thumbnail?id=1CsPekD3P5yxg6h2oedLvAcU_Qhxnjm43&sz=w512",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
