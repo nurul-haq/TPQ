@@ -1,5 +1,4 @@
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
-
 // KUNCI UPDATE: Ganti angka ini setiap kali Anda mengubah kode di GitHub (misal: v1.1, v1.2)
 const CACHE_VERSION = 'v1.0';
 const CACHE_NAME = 'tpq-cache-' + CACHE_VERSION;
