@@ -1,7 +1,9 @@
 importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
-const CACHE_NAME = 'tpq-cache-v2';
 
-// 1. Daftar file cangkang yang akan disimpan permanen di HP (Cache)
+// KUNCI UPDATE: Ganti angka ini setiap kali Anda mengubah kode di GitHub (misal: v1.1, v1.2)
+const CACHE_VERSION = 'v1.0';
+const CACHE_NAME = 'tpq-cache-' + CACHE_VERSION;
+
 const urlsToCache = [
   './',
   './index.html',
@@ -10,33 +12,49 @@ const urlsToCache = [
   './Logo%20512.png'
 ];
 
-// 2. Saat pertama kali diinstal, simpan file-file di atas ke memori HP
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('Membuka cache dan menyimpan file cangkang...');
+      console.log('Menyimpan cache versi:', CACHE_VERSION);
       return cache.addAll(urlsToCache);
     })
   );
-  self.skipWaiting();
+  // Kita sengaja TIDAK pakai self.skipWaiting() otomatis di sini,
+  // agar kita bisa memunculkan tombol "Update" di layar HP pengguna.
 });
 
+// Membersihkan "sampah" memori dari versi aplikasi yang lama
 self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME && cacheName.startsWith('tpq-cache-')) {
+            console.log('Menghapus versi aplikasi lama:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
   event.waitUntil(clients.claim());
 });
 
-// 3. Saat aplikasi dibuka, tampilkan cangkang dari memori HP agar super cepat
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
-      // Jika file ada di memori HP, langsung tampilkan (cepat & bisa offline)
-      // Jika tidak ada (seperti request ke Google Script), ambil dari internet
       return response || fetch(event.request);
     }).catch(() => {
-      // Jika tidak ada internet sama sekali dan file tidak ada di cache
-      return new Response('Aplikasi TPQ membutuhkan koneksi internet untuk memuat data.', {
+      return new Response('Aplikasi TPQ membutuhkan koneksi internet untuk memuat data baru.', {
         headers: { 'Content-Type': 'text/plain' }
       });
     })
   );
+});
+
+// Menerima perintah "Perbarui" dari tombol di layar HP pengguna
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });
