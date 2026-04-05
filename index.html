@@ -21,8 +21,10 @@
           allowLocalhostAsSecureOrigin: true,
         });
         
-        // Memaksa munculkan permintaan izin jika belum di-klik
-        OneSignal.Notifications.requestPermission();
+        // Memaksa munculkan kotak izin Chrome
+        setTimeout(() => {
+          OneSignal.Notifications.requestPermission();
+        }, 2000); // Tunggu 2 detik agar halaman stabil
       });
     </script>
     <style>
