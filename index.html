@@ -169,12 +169,17 @@
     </div>
 
     <script>
-      // ==========================================
+     // ==========================================
       // 1. INJEKSI DEEP LINKING KE GOOGLE SCRIPT
       // ==========================================
       const gasUrl = "https://script.google.com/macros/s/AKfycbxUkj-y3mppSeFACvJ-MVCELHw7P1VyFaCabxpj8q16UIL-SQaKO8ReoW23OuyuOGaH/exec";
-      const params = window.location.search; // Menangkap ?buka=raport dari URL Github
-      document.getElementById('appFrame').src = gasUrl + params; // Meneruskannya ke Iframe
+      const params = window.location.search; 
+      
+      // TAMBAHKAN KODE INI UNTUK MENGHANCURKAN CACHE
+      const waktuSekarang = new Date().getTime(); 
+      const finalUrl = gasUrl + (params ? params + "&" : "?") + "refresh=" + waktuSekarang;
+      
+      document.getElementById('appFrame').src = finalUrl;
 
       // ==========================================
       // 2. PENANGANAN ONESIGNAL & PESAN IFRAME
