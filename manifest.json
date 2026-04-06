@@ -1,21 +1,24 @@
 {
-  "name": "TPQ NURUL HAQ",
-  "short_name": "TPQ NURUL HAQ",
+  "name": "TPQ NURUL HAQ PASURUAN",
+  "short_name": "Portal TPQ",
   "description": "Aplikasi Portal TPQ Nurul Haq Pasuruan",
   "display": "standalone",
+  "scope": "/TPQ/",
   "start_url": "/TPQ/index.html",
-  "background_color": "#064e3b",
+  "background_color": "#009688",
   "theme_color": "#009688",
   "icons": [
     {
       "src": "./Logo%20192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "./Logo%20512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
