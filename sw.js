@@ -53,7 +53,8 @@ self.addEventListener('fetch', (event) => {
 
 // Menerima perintah "Perbarui" dari tombol di layar HP pengguna
 self.addEventListener('message', (event) => {
-  if (event.data === 'SKIP_WAITING') {
+  // KODE YANG DIPERBAIKI:
+  if (event.data && event.data.action === 'skipWaiting') {
     self.skipWaiting();
   }
 });
