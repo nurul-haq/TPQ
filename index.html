@@ -7,53 +7,89 @@
     
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#009688">
-    <link rel="icon" type="image/png" sizes="192x192" href="./logo-192.png>
+    <link rel="icon" type="image/png" sizes="192x192" href="./logo-192.png">
 
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     
     <style>
-        /* Desain Splash Screen */
+        /* =========================================
+           1. DESAIN SPLASH SCREEN MODERN
+           ========================================= */
         #splash-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #009688; /* Warna identitas TPQ */
+            /* Mengganti warna flat dengan gradient yang elegan */
+            background: linear-gradient(135deg, #009688 0%, #004d40 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 20000; /* Paling depan */
-            transition: opacity 0.5s ease, visibility 0.5s;
+            z-index: 20000;
+            /* Transisi saat hilang dibuat lebih mulus */
+            transition: opacity 0.6s cubic-bezier(0.8, 0, 0.2, 1), visibility 0.6s;
         }
 
+        /* Animasi Melayang (Floating) untuk Logo */
         .splash-logo {
             width: 120px;
             height: 120px;
-            border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: pulse 2s infinite;
+            border-radius: 28px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            /* Latar belakang putih agar logo menonjol */
+            background-color: #ffffff;
+            padding: 8px; /* Memberi ruang bernapas untuk logo */
+            animation: float 3s ease-in-out infinite;
+            object-fit: contain;
         }
 
-        .splash-loader {
-            margin-top: 20px;
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255,255,255,0.3);
+        /* Loader Modern (Gaya Titik Bouncing) */
+        .modern-loader {
+            margin-top: 35px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .modern-loader span {
+            width: 10px;
+            height: 10px;
+            background-color: #ffffff;
             border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
+            animation: bounce 1.4s infinite ease-in-out both;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .modern-loader span:nth-child(1) { animation-delay: -0.32s; }
+        .modern-loader span:nth-child(2) { animation-delay: -0.16s; }
+
+        /* Teks Loading yang Elegan */
+        .splash-text {
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 20px;
+            font-size: 13px;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            animation: pulse-opacity 2s infinite ease-in-out;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        /* --- KEYFRAMES UNTUK ANIMASI --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse-opacity {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
 
         /* Class untuk menghilangkan splash */
@@ -62,6 +98,9 @@
             visibility: hidden;
         }
         
+        /* =========================================
+           2. PENGATURAN DASAR & IFRAME
+           ========================================= */
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             overflow: hidden; background-color: #009688;
@@ -72,15 +111,17 @@
             width: 100%; height: 100%; border: none; display: block;
         }
 
-        /* Desain Banner Pro - Floating Card */
+        /* =========================================
+           3. BANNER INSTALL
+           ========================================= */
         #installBanner {
             display: none;
             position: fixed;
-            bottom: 20px; /* Melayang, tidak menempel di bawah */
+            bottom: 20px;
             left: 20px;
             right: 20px;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px); /* Efek kaca */
+            backdrop-filter: blur(10px);
             padding: 16px;
             border-radius: 24px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
@@ -162,8 +203,12 @@
 
     <div id="splash-screen">
         <img src="./logo-192.png" alt="Logo TPQ" class="splash-logo">
-        <div class="splash-loader"></div>
-        <p style="color: white; margin-top: 15px; font-weight: bold; letter-spacing: 1px;">MEMUAT DATA...</p>
+        <div class="modern-loader">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <p class="splash-text">MEMUAT DATA</p>
     </div>
     
     <iframe id="appFrame" allow="camera; microphone; fullscreen" sandbox="allow-scripts allow-top-navigation allow-same-origin allow-forms allow-popups"></iframe>
@@ -186,7 +231,6 @@
         OneSignalDeferred.push(async function(OneSignal) {
             await OneSignal.init({
                 appId: "26d9af55-8916-405f-9c08-fd6910730bc5",
-                // Pastikan folder di GitHub Pages kamu memang bernama /TPQ/
                 serviceWorkerPath: "/TPQ/sw.js", 
                 serviceWorkerParam: { scope: "/TPQ/" },
                 notifyButton: { enable: true }, 
@@ -200,16 +244,14 @@
         const finalUrl = gasUrl + (params ? params + "&" : "?") + "refresh=" + waktuSekarang;
         document.getElementById('appFrame').src = finalUrl;
 
-        // 3. Service Worker PWA Dasar (Disamakan strukturnya agar aman)
+        // 3. Service Worker PWA Dasar
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js').catch(err => console.log('Service Worker gagal:', err));
             });
         }
 
-        // ==========================================
         // 4. LOGIKA BANNER INSTALL OTOMATIS
-        // ==========================================
         let deferredPrompt;
         const installBanner = document.getElementById('installBanner');
         const btnInstall = document.getElementById('btnInstall');
@@ -236,14 +278,15 @@
             console.log('Aplikasi TPQ berhasil diinstal di HP!');
         });
 
-        // 5. Fungsi untuk menutup Splash Screen saat Iframe selesai dimuat
+        // 5. Fungsi Penutup Splash Screen Mulus
         const appFrame = document.getElementById('appFrame');
         const splash = document.getElementById('splash-screen');
 
         appFrame.onload = function() {
+            // Memberi waktu tambahan 1.5 detik agar animasi loading sempat dinikmati pengguna
             setTimeout(() => {
                 splash.classList.add('fade-out');
-            }, 1000); 
+            }, 1500); 
         };
     </script>
 </body>
