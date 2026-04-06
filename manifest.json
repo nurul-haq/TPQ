@@ -1,6 +1,6 @@
 {
   "name": "TPQ NURUL HAQ PASURUAN",
-  "short_name": "Portal TPQ",
+  "short_name": "TPQ NURUL HAQ",
   "description": "Aplikasi Portal TPQ Nurul Haq Pasuruan",
   "display": "standalone",
   "scope": "/TPQ/",
