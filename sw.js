@@ -1,6 +1,8 @@
-importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
-// KUNCI UPDATE: Ganti angka ini setiap kali Anda mengubah kode di GitHub (misal: v1.1, v1.2)
-const CACHE_VERSION = 'v1.1';
+// UNTUK SEMENTARA, ONESIGNAL KITA MATIKAN DULU AGAR FOKUS KE PWA MURNI
+// importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
+
+// KUNCI UPDATE: Ganti angka ini setiap kali mengubah file (misal: v1.2, v1.3)
+const CACHE_VERSION = 'v1.2'; 
 const CACHE_NAME = 'tpq-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
@@ -18,8 +20,8 @@ self.addEventListener('install', (event) => {
       return cache.addAll(urlsToCache);
     })
   );
-  // Kita sengaja TIDAK pakai self.skipWaiting() otomatis di sini,
-  // agar kita bisa memunculkan tombol "Update" di layar HP pengguna.
+  // KARENA TIDAK ADA TOMBOL UPDATE LAGI, KITA PAKSA LANGSUNG UPDATE OTOMATIS:
+  self.skipWaiting(); 
 });
 
 // Membersihkan "sampah" memori dari versi aplikasi yang lama
@@ -44,17 +46,11 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
     }).catch(() => {
-      return new Response('Aplikasi TPQ membutuhkan koneksi internet untuk memuat data baru.', {
+      return new Response('Aplikasi TPQ membutuhkan koneksi internet untuk memuat data.', {
         headers: { 'Content-Type': 'text/plain' }
       });
     })
   );
 });
 
-// Menerima perintah "Perbarui" dari tombol di layar HP pengguna
-self.addEventListener('message', (event) => {
-  // KODE YANG DIPERBAIKI:
-  if (event.data && event.data.action === 'skipWaiting') {
-    self.skipWaiting();
-  }
-});
+// Kode addEventListener('message') DIHAPUS karena PWA sekarang update otomatis
