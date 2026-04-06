@@ -2,8 +2,8 @@
   "name": "TPQ NURUL HAQ",
   "short_name": "TPQ NURUL HAQ",
   "description": "Aplikasi Portal TPQ Nurul Haq Pasuruan",
-  "start_url": "./index.html",
   "display": "standalone",
+  "start_url": "/TPQ/index.html",
   "background_color": "#064e3b",
   "theme_color": "#009688",
   "icons": [
