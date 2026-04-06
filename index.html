@@ -12,6 +12,57 @@
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     
     <style>
+
+        /* Desain Splash Screen */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #009688; /* Warna identitas TPQ */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20000; /* Paling depan */
+    transition: opacity 0.5s ease, visibility 0.5s;
+}
+
+.splash-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: pulse 2s infinite;
+}
+
+.splash-loader {
+    margin-top: 20px;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Class untuk menghilangkan splash */
+.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+        
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             overflow: hidden; background-color: #009688;
@@ -108,6 +159,12 @@
     </style>
 </head>
 <body>
+
+    <div id="splash-screen">
+    <img src="./Logo%20192.png" alt="Logo TPQ" class="splash-logo">
+    <div class="splash-loader"></div>
+    <p style="color: white; margin-top: 15px; font-weight: bold; letter-spacing: 1px;">MEMUAT DATA...</p>
+</div>
     
     <iframe id="appFrame" allow="camera; microphone; fullscreen" sandbox="allow-scripts allow-top-navigation allow-same-origin allow-forms allow-popups"></iframe>
 
@@ -122,7 +179,7 @@
     </div>
     <button id="btnInstall">PASANG</button>
 </div>
-
+    
     <script>
       // 1. Setting OneSignal
       window.OneSignalDeferred = window.OneSignalDeferred || [];
@@ -185,6 +242,18 @@
         deferredPrompt = null;
         console.log('Aplikasi TPQ berhasil diinstal di HP!');
       });
+
+        // Fungsi untuk menutup Splash Screen saat Iframe selesai dimuat
+const appFrame = document.getElementById('appFrame');
+const splash = document.getElementById('splash-screen');
+
+appFrame.onload = function() {
+    // Beri jeda sedikit agar transisi halus
+    setTimeout(() => {
+        splash.classList.add('fade-out');
+    }, 1000); 
+};
+        
     </script>
 </body>
 </html>
