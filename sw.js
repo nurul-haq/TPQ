@@ -2,15 +2,15 @@
 // importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
 // KUNCI UPDATE: Ganti angka ini setiap kali mengubah file (misal: v1.2, v1.3)
-const CACHE_VERSION = 'v1.8'; 
+const CACHE_VERSION = 'v1.9'; 
 const CACHE_NAME = 'tpq-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
-  './Logo%20192.png',
-  './Logo%20512.png'
+  './logo-192.png',
+  './logo-512.png'
 ];
 
 self.addEventListener('install', (event) => {
