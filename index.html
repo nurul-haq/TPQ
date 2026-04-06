@@ -8,21 +8,51 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#009688">
     <link rel="icon" type="image/png" sizes="192x192" href="./Logo%20192.png">
+
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #009688; /* Warna loading awal */
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; background-color: #009688;
+            font-family: sans-serif;
         }
         iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
+            width: 100%; height: 100%; border: none; display: block;
+        }
+
+        /* ==========================================
+           DESAIN BANNER INSTALL (Muncul dari bawah)
+           ========================================== */
+        #installBanner {
+            display: none; 
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #ffffff; padding: 15px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15); z-index: 9999;
+            justify-content: space-between; align-items: center;
+            border-top-left-radius: 20px; border-top-right-radius: 20px;
+            box-sizing: border-box; animation: slideUp 0.5s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .banner-kiri { display: flex; align-items: center; gap: 12px; }
+        .banner-kiri img { width: 45px; height: 45px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .banner-teks h6 { margin: 0 0 2px 0; font-size: 1rem; color: #064e3b; font-weight: 700; }
+        .banner-teks small { margin: 0; font-size: 0.75rem; color: #64748b; }
+        
+        #btnInstall {
+            background: #009688; color: white; border: none; padding: 10px 20px;
+            border-radius: 50px; font-weight: bold; font-size: 0.85rem; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 150, 136, 0.3);
+        }
+        #btnTutupBanner {
+            position: absolute; top: -12px; right: 15px;
+            background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0;
+            border-radius: 50%; width: 26px; height: 26px; font-size: 14px;
+            font-weight: bold; cursor: pointer; display: flex;
+            justify-content: center; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -30,21 +60,80 @@
     
     <iframe id="appFrame" allow="camera; microphone; fullscreen" sandbox="allow-scripts allow-top-navigation allow-same-origin allow-forms allow-popups"></iframe>
 
+    <div id="installBanner">
+        <button id="btnTutupBanner" onclick="document.getElementById('installBanner').style.display='none'">×</button>
+        <div class="banner-kiri">
+            <img src="./Logo%20192.png" alt="Logo TPQ">
+            <div class="banner-teks">
+                <h6>TPQ Nurul Haq</h6>
+                <small>Install aplikasi untuk akses cepat</small>
+            </div>
+        </div>
+        <button id="btnInstall">Install</button>
+    </div>
+
     <script>
-      // 1. Injeksi Link Google Script & Penghancur Cache
+      // 1. Setting OneSignal
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "26d9af55-8916-405f-9c08-fd6910730bc5",
+          serviceWorkerPath: "/TPQ/sw.js", 
+          serviceWorkerParam: { scope: "/TPQ/" },
+          notifyButton: { enable: true }, 
+        });
+      });
+
+      // 2. Injeksi Google Script Iframe
       const gasUrl = "https://script.google.com/macros/s/AKfycbxUkj-y3mppSeFACvJ-MVCELHw7P1VyFaCabxpj8q16UIL-SQaKO8ReoW23OuyuOGaH/exec";
       const params = window.location.search; 
       const waktuSekarang = new Date().getTime(); 
       const finalUrl = gasUrl + (params ? params + "&" : "?") + "refresh=" + waktuSekarang;
-      
       document.getElementById('appFrame').src = finalUrl;
 
-      // 2. Pendaftaran Service Worker PWA Dasar
+      // 3. Service Worker PWA Dasar
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('./sw.js').catch(err => console.log('Service Worker gagal:', err));
         });
       }
+
+      // ==========================================
+      // 4. LOGIKA BANNER INSTALL OTOMATIS
+      // ==========================================
+      let deferredPrompt;
+      const installBanner = document.getElementById('installBanner');
+      const btnInstall = document.getElementById('btnInstall');
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Mencegah munculnya pop-up default bawaan Chrome agar tidak bentrok
+        e.preventDefault();
+        // Simpan event ini untuk dieksekusi saat tombol Install diklik
+        deferredPrompt = e;
+        // Tampilkan banner cantik milik kita
+        installBanner.style.display = 'flex';
+      });
+
+      btnInstall.addEventListener('click', async () => {
+        // Sembunyikan banner kita setelah diklik
+        installBanner.style.display = 'none';
+        
+        if (deferredPrompt) {
+            // Tampilkan pop-up instalasi resmi dari sistem Android
+            deferredPrompt.prompt();
+            // Tunggu pilihan pengguna (Install / Batal)
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`Pengguna memilih: ${outcome}`);
+            deferredPrompt = null;
+        }
+      });
+
+      // Jika pengguna sukses menginstal, pastikan banner hilang
+      window.addEventListener('appinstalled', () => {
+        installBanner.style.display = 'none';
+        deferredPrompt = null;
+        console.log('Aplikasi TPQ berhasil diinstal di HP!');
+      });
     </script>
 </body>
 </html>
