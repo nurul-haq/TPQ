@@ -12,57 +12,7 @@
     <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     
     <style>
-
-        /* Desain Splash Screen */
-#splash-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #009688; /* Warna identitas TPQ */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 20000; /* Paling depan */
-    transition: opacity 0.5s ease, visibility 0.5s;
-}
-
-.splash-logo {
-    width: 120px;
-    height: 120px;
-    border-radius: 25px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    animation: pulse 2s infinite;
-}
-
-.splash-loader {
-    margin-top: 20px;
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* Class untuk menghilangkan splash */
-.fade-out {
-    opacity: 0;
-    visibility: hidden;
-}
-        
+        /* 1. CSS DASAR */
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             overflow: hidden; background-color: #009688;
@@ -72,116 +22,84 @@
             width: 100%; height: 100%; border: none; display: block;
         }
 
-       /* Desain Banner Pro - Floating Card */
-#installBanner {
-    display: none;
-    position: fixed;
-    bottom: 20px; /* Melayang, tidak menempel di bawah */
-    left: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px); /* Efek kaca */
-    padding: 16px;
-    border-radius: 24px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    z-index: 10000;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    border: 1px solid rgba(255,255,255,0.3);
-    animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
+        /* 2. CSS SPLASH SCREEN */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #009688; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 20000;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .splash-logo {
+            width: 120px; height: 120px; border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        .splash-loader {
+            margin-top: 20px; width: 40px; height: 40px;
+            border: 4px solid rgba(255,255,255,0.3); border-radius: 50%;
+            border-top-color: #fff; animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .fade-out { opacity: 0; visibility: hidden; }
 
-@keyframes bounceIn {
-    0% { transform: translateY(150%) scale(0.8); opacity: 0; }
-    100% { transform: translateY(0) scale(1); opacity: 1; }
-}
-
-.banner-kiri {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.banner-kiri img {
-    width: 50px;
-    height: 50px;
-    border-radius: 14px;
-    object-fit: cover;
-    box-shadow: 0 4px 10px rgba(0,150,136,0.2);
-}
-
-.banner-teks h6 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #1a202c;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-}
-
-.banner-teks small {
-    color: #718096;
-    font-size: 0.85rem;
-}
-
-#btnInstall {
-    background: #009688;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#btnInstall:active {
-    transform: scale(0.9);
-}
-
-#btnTutupBanner {
-    position: absolute;
-    top: -10px;
-    right: 10px;
-    background: #ff5f57;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    font-size: 12px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+        /* 3. CSS BANNER INSTALL PRO */
+        #installBanner {
+            display: none; position: fixed; bottom: 20px; left: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            padding: 16px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            z-index: 10000; justify-content: space-between; align-items: center;
+            box-sizing: border-box; border: 1px solid rgba(255,255,255,0.3);
+            animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        @keyframes bounceIn {
+            0% { transform: translateY(150%) scale(0.8); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        .banner-kiri { display: flex; align-items: center; gap: 15px; }
+        .banner-kiri img { width: 50px; height: 50px; border-radius: 14px; object-fit: cover; }
+        .banner-teks h6 { margin: 0; font-size: 1.1rem; color: #1a202c; font-weight: 800; }
+        .banner-teks small { color: #718096; font-size: 0.85rem; }
+        #btnInstall {
+            background: #009688; color: white; border: none; padding: 12px 24px;
+            border-radius: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;
+        }
+        #btnInstall:active { transform: scale(0.9); }
+        #btnTutupBanner {
+            position: absolute; top: -10px; right: 10px; background: #ff5f57;
+            color: white; border: none; border-radius: 50%; width: 22px; height: 22px;
+            font-size: 12px; cursor: pointer; display: flex; justify-content: center; align-items: center;
+        }
     </style>
 </head>
 <body>
 
     <div id="splash-screen">
-    <img src="./Logo%20192.png" alt="Logo TPQ" class="splash-logo">
-    <div class="splash-loader"></div>
-    <p style="color: white; margin-top: 15px; font-weight: bold; letter-spacing: 1px;">MEMUAT DATA...</p>
-</div>
+        <img src="./Logo%20192.png" alt="Logo TPQ" class="splash-logo">
+        <div class="splash-loader"></div>
+        <p style="color: white; margin-top: 15px; font-weight: bold; letter-spacing: 1px;">MEMUAT DATA...</p>
+    </div>
     
     <iframe id="appFrame" allow="camera; microphone; fullscreen" sandbox="allow-scripts allow-top-navigation allow-same-origin allow-forms allow-popups"></iframe>
 
-   <div id="installBanner">
-    <button id="btnTutupBanner" onclick="document.getElementById('installBanner').style.display='none'">✕</button>
-    <div class="banner-kiri">
-        <img src="./Logo%20192.png" alt="Logo TPQ">
-        <div class="banner-teks">
-            <h6>TPQ Nurul Haq</h6>
-            <small>Cepat • Ringan • Aman</small>
+    <div id="installBanner">
+        <button id="btnTutupBanner" onclick="document.getElementById('installBanner').style.display='none'">✕</button>
+        <div class="banner-kiri">
+            <img src="./Logo%20192.png" alt="Logo TPQ">
+            <div class="banner-teks">
+                <h6>TPQ Nurul Haq</h6>
+                <small>Cepat • Ringan • Aman</small>
+            </div>
         </div>
+        <button id="btnInstall">PASANG</button>
     </div>
-    <button id="btnInstall">PASANG</button>
-</div>
-    
+
     <script>
-      // 1. Setting OneSignal
+      // 1. Inisialisasi OneSignal
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       OneSignalDeferred.push(async function(OneSignal) {
         await OneSignal.init({
@@ -192,68 +110,53 @@
         });
       });
 
-      // 2. Injeksi Google Script Iframe
+      // 2. Load Google Script Iframe
       const gasUrl = "https://script.google.com/macros/s/AKfycbxUkj-y3mppSeFACvJ-MVCELHw7P1VyFaCabxpj8q16UIL-SQaKO8ReoW23OuyuOGaH/exec";
       const params = window.location.search; 
       const waktuSekarang = new Date().getTime(); 
       const finalUrl = gasUrl + (params ? params + "&" : "?") + "refresh=" + waktuSekarang;
       document.getElementById('appFrame').src = finalUrl;
 
-      // 3. Service Worker PWA Dasar
+      // 3. Registrasi Service Worker PWA
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js').catch(err => console.log('Service Worker gagal:', err));
+          navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW Gagal:', err));
         });
       }
 
-      // ==========================================
-      // 4. LOGIKA BANNER INSTALL OTOMATIS
-      // ==========================================
+      // 4. Logika Banner Install
       let deferredPrompt;
       const installBanner = document.getElementById('installBanner');
       const btnInstall = document.getElementById('btnInstall');
 
       window.addEventListener('beforeinstallprompt', (e) => {
-        // Mencegah munculnya pop-up default bawaan Chrome agar tidak bentrok
         e.preventDefault();
-        // Simpan event ini untuk dieksekusi saat tombol Install diklik
         deferredPrompt = e;
-        // Tampilkan banner cantik milik kita
         installBanner.style.display = 'flex';
       });
 
       btnInstall.addEventListener('click', async () => {
-        // Sembunyikan banner kita setelah diklik
         installBanner.style.display = 'none';
-        
         if (deferredPrompt) {
-            // Tampilkan pop-up instalasi resmi dari sistem Android
             deferredPrompt.prompt();
-            // Tunggu pilihan pengguna (Install / Batal)
             const { outcome } = await deferredPrompt.userChoice;
-            console.log(`Pengguna memilih: ${outcome}`);
             deferredPrompt = null;
         }
       });
 
-      // Jika pengguna sukses menginstal, pastikan banner hilang
       window.addEventListener('appinstalled', () => {
         installBanner.style.display = 'none';
-        deferredPrompt = null;
-        console.log('Aplikasi TPQ berhasil diinstal di HP!');
       });
 
-        // Fungsi untuk menutup Splash Screen saat Iframe selesai dimuat
-const appFrame = document.getElementById('appFrame');
-const splash = document.getElementById('splash-screen');
+      // 5. Tutup Splash Screen Setelah Iframe Load
+      const appFrame = document.getElementById('appFrame');
+      const splash = document.getElementById('splash-screen');
 
-appFrame.onload = function() {
-    // Beri jeda sedikit agar transisi halus
-    setTimeout(() => {
-        splash.classList.add('fade-out');
-    }, 1000); 
-};
-        
+      appFrame.onload = function() {
+        setTimeout(() => {
+          splash.classList.add('fade-out');
+        }, 1500); 
+      };
     </script>
 </body>
 </html>
