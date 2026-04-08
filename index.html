@@ -11,14 +11,14 @@
 
     <style>
        /* =========================================
-           1. DESAIN SPLASH SCREEN KELAS PREMIUM (ANIMATED)
+           1. DESAIN SPLASH SCREEN KELAS PREMIUM (ANIMATED & LARGE)
            ========================================= */
         #splash-screen {
             position: fixed;
             top: 0;
             left: 0;
-            width: 200%;
-            height: 200%;
+            width: 100%;
+            height: 100%;
             /* Background Gradien Mengalir (Animated) */
             background: linear-gradient(135deg, #00332a, #00695c, #004d40, #00251a);
             background-size: 300% 300%;
@@ -40,7 +40,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 45%);
             animation: lightRotate 25s linear infinite;
             z-index: 0;
             pointer-events: none;
@@ -55,12 +55,13 @@
             width: 120%;
             height: 120%;
             /* SVG Motif Geometris dengan warna Emas (d4af37) */
-            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d4af37" fill-opacity="0.06"%3E%3Cpath d="M30 0l21.213 8.787L60 30l-8.787 21.213L30 60 8.787 51.213 0 30l8.787-21.213L30 0zm0 15a15 15 0 1 0 0 30 15 15 0 0 0 0-30z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-            background-size: 90px 90px;
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d4af37" fill-opacity="0.07"%3E%3Cpath d="M30 0l21.213 8.787L60 30l-8.787 21.213L30 60 8.787 51.213 0 30l8.787-21.213L30 0zm0 15a15 15 0 1 0 0 30 15 15 0 0 0 0-30z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            background-size: 100px 100px;
             animation: patternBreathe 8s ease-in-out infinite;
             z-index: 1;
             pointer-events: none;
         }
+
         /* Kontainer Utama untuk Elemen */
         .splash-content {
             display: flex;
@@ -70,148 +71,174 @@
             position: relative;
         }
 
-        /* Kontainer Logo dengan Halo Halo dan Orbit */
+        /* Kontainer Logo - Memberi ruang untuk animasi glow & orbit */
         .logo-container {
             position: relative;
-            margin-bottom: 40px; /* Jarak yang lebih baik */
-        }
-
-       /* Bingkai Lingkaran diperbesar menjadi 260px */
-        .logo-frame {
-            width: 260px; 
-            height: 260px;
-            border-radius: 50%;
-            background: rgba(0, 37, 26, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 
-                        0 0 40px rgba(212, 175, 55, 0.15),
-                        inset 0 0 20px rgba(212, 175, 55, 0.1);
+            margin-bottom: 50px; /* Jarak dijauhkan agar tidak sesak dengan teks */
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 5px; /* Jarak dibuat lebih mepet agar logo lebih penuh */
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            position: relative;
-            z-index: 2;
         }
 
-        /* Logo Asli diperbesar ke 250px dan di-Zoom In */
-        .splash-logo {
-            width: 250px;
+        /* --- DESAIN BINGKAI GANDA (DUAL GLASSMORPHISM) --- */
+        
+        /* Bingkai Luar (Glow Emas & Kaca Transparan) - UKURAN RAKSASA: 280px */
+        .logo-frame-outer {
+            position: absolute;
+            width: 280px; 
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(0, 37, 26, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2), 
+                        inset 0 0 30px rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            z-index: 2;
+            animation: pulseOuter 4s ease-in-out infinite;
+        }
+
+        /* Bingkai Dalam (Menopang Logo) - UKURAN: 250px */
+        .logo-frame-inner {
+            width: 250px; 
             height: 250px;
             border-radius: 50%;
-            object-fit: contain;
-            /* Trik agar logo membesar menutupi ruang kosong di dalam file gambarnya */
-            transform: scale(1.1); 
-            animation: floatSlow 6s ease-in-out infinite;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
+                        inset 0 0 15px rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 3; /* Berada di atas bingkai luar */
+            overflow: hidden; /* Memastikan logo yang 'tumpah' terpotong rapi */
         }
 
-        /* Animasi Orbit disesuaikan menjadi 270px */
+        /* Logo Asli di Dalam Bingkai Dalam - UKURAN: 260px (Sengaja lebih besar untuk efek penuh) */
+        .splash-logo {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            object-fit: cover; /* Diubah ke cover agar memenuhi seluruh lingkaran */
+            /* Animasi melayang halus */
+            animation: floatSlow 6s ease-in-out infinite;
+            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.6)) contrast(1.1); /* Kontras dinaikkan sedikit agar warna lebih hidup */
+        }
+
+        /* --- ANIMASI ORBIT --- */
+
+        /* Garis Orbit - UKURAN: 310px (Melingkari bingkai luar) */
         .loader-orbit {
             position: absolute;
-            top: -5px;
-            left: -5px;
-            width: 270px; 
-            height: 270px;
+            /* Memusatkan orbit secara absolut */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 310px; 
+            height: 310px;
             border-radius: 50%;
             border: 2px solid transparent;
-            border-top-color: rgba(212, 175, 55, 0.6);
+            /* Warna ekor orbit: Emas terang ke transparan */
+            border-top-color: rgba(212, 175, 55, 0.8);
             border-right-color: rgba(212, 175, 55, 0.2);
-            animation: orbitSpeed 1.5s linear infinite;
-            z-index: 1;
+            z-index: 4; /* Berada paling atas dari susunan cincin */
+            /* Perhatikan: Animasi rotasi sekarang didefinisikan berbeda untuk menjaga centering */
+            animation: orbitSpin 1.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; 
         }
 
-        /* Titik Bercahaya pada Orbit disesuaikan untuk presisi 270px */
+        /* Titik Emas Bercahaya (The Comet) */
         .loader-orbit::before {
             content: '';
             position: absolute;
-            top: 39px; 
-            right: 39px; 
-            width: 10px;
-            height: 10px;
-            background-color: #fce883;
+            /* Koordinat ini mengunci titik di lintasan lingkaran 310px */
+            top: 38px; 
+            right: 38px; 
+            width: 14px; /* Sedikit lebih besar */
+            height: 14px;
+            background-color: #ffe066; /* Kuning emas sangat terang */
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.8), 
-                        0 0 30px rgba(212, 175, 55, 0.5);
-            animation: pulseGlow 2s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255, 224, 102, 1), 
+                        0 0 40px rgba(212, 175, 55, 0.8),
+                        0 0 60px rgba(212, 175, 55, 0.4);
         }
-        /* Teks Pemuat yang Menginspirasi & Ramping */
+
+        /* Teks Pemuat yang Menginspirasi & Elegan */
         .splash-text {
             color: #ffffff;
-            margin-top: 0;
-            font-size: 11px; /* Sedikit lebih kecil, lebih modern */
+            margin-top: 10px;
+            font-size: 13px; /* Ukuran proporsional dengan logo raksasa */
             font-family: 'Montserrat', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            font-weight: 700;
-            letter-spacing: 5px; /* Lebih lebar */
+            font-weight: 600;
+            letter-spacing: 6px; /* Spasi huruf lebar untuk kesan elegan */
             text-transform: uppercase;
-            opacity: 0.8;
-            /* Shimmer Effect BARU */
-            background: linear-gradient(90deg, #ffffff 0%, rgba(255,255,255,0.4) 50%, #ffffff 100%);
+            opacity: 0.9;
+            /* Efek Shimmer (Kilau menyapu teks) */
+            background: linear-gradient(90deg, rgba(255,255,255,0.5) 0%, #ffffff 50%, rgba(255,255,255,0.5) 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent; /* Teks asli transparan agar shimmer terlihat */
-            animation: shimmerEffect 3s linear infinite, fadeInOut 3s ease-in-out infinite;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            color: transparent;
+            animation: shimmerText 3s linear infinite;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
-        /* --- KEYFRAMES BARU UNTUK ANIMASI YANG LEBIH HALUS --- */
+        /* --- KUMPULAN KEYFRAMES ANIMASI --- */
 
-        /* Animasi Pergerakan Warna Background */
+        /* 1. Animasi Latar Belakang Gradien */
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Animasi Efek Cahaya Memutar */
+        /* 2. Animasi Cahaya Memutar di Latar */
         @keyframes lightRotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        /* Animasi Pola Bernapas (Zoom in/out & Redup/Terang) */
+        /* 3. Animasi Pola Islami Bernapas */
         @keyframes patternBreathe {
             0%, 100% { transform: scale(1); opacity: 0.6; }
             50% { transform: scale(1.05); opacity: 1; }
         }
         
+        /* 4. Animasi Logo Melayang Halus */
         @keyframes floatSlow {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(1deg); } /* Gerakan rotasi halus */
-            100% { transform: translateY(0px) rotate(0deg); }
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-8px) scale(1.02); } /* Mengambang naik sambil sedikit membesar */
+            100% { transform: translateY(0px) scale(1); }
         }
 
-        @keyframes orbitSpeed {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* 5. Animasi Denyut Bingkai Luar */
+        @keyframes pulseOuter {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(212, 175, 55, 0.2), inset 0 0 30px rgba(212, 175, 55, 0.15); }
+            50% { transform: scale(1.03); box-shadow: 0 0 60px rgba(212, 175, 55, 0.4), inset 0 0 40px rgba(212, 175, 55, 0.25); }
         }
 
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(0, 150, 136, 0.5); transform: scale(1); }
-            50% { box-shadow: 0 0 25px rgba(255, 255, 255, 1), 0 0 50px rgba(0, 150, 136, 0.8); transform: scale(1.1); }
+        /* 6. Animasi Putaran Orbit (Khusus untuk posisi terpusat) */
+        @keyframes orbitSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        @keyframes shimmerEffect {
+        /* 7. Animasi Teks Shimmer */
+        @keyframes shimmerText {
             0% { background-position: 200% center; }
             100% { background-position: -200% center; }
         }
 
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        /* Class untuk menghilangkan splash */
+        /* Class untuk menyembunyikan splash screen (dikontrol oleh JS) */
         .fade-out {
             opacity: 0;
             visibility: hidden;
         }
 
         /* =========================================
-           2. PENGATURAN DASAR & IFRAME
+           2. PENGATURAN DASAR & IFRAME (PWA)
            ========================================= */
         body, html {
             margin: 0; 
@@ -219,7 +246,7 @@
             width: 100%; 
             height: 100%;
             overflow: hidden; 
-            background-color: #f4fdf8;
+            background-color: #f4fdf8; /* Warna fallback */
             font-family: sans-serif;
         }
         
