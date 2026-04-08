@@ -2,7 +2,7 @@
 // importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
 // KUNCI UPDATE: Ganti angka ini setiap kali mengubah file (misal: v1.2, v1.3)
-const CACHE_VERSION = 'v3.0'; 
+const CACHE_VERSION = 'v3.1'; 
 const CACHE_NAME = 'tpq-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
