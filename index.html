@@ -10,8 +10,8 @@
     <link rel="icon" type="image/png" sizes="192x192" href="./logo-192.png">
 
     <style>
-        /* =========================================
-           1. DESAIN SPLASH SCREEN PROFESIONAL & MODERN (BARU)
+       /* =========================================
+           1. DESAIN SPLASH SCREEN KELAS PREMIUM (ANIMATED)
            ========================================= */
         #splash-screen {
             position: fixed;
@@ -19,8 +19,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Gradien Kompleks & Pola Sublim */
-            background: radial-gradient(circle at center, #009688 0%, #00695c 60%, #004d40 100%);
+            /* Background Gradien Mengalir (Animated) */
+            background: linear-gradient(135deg, #00332a, #00695c, #004d40, #00251a);
+            background-size: 300% 300%;
+            animation: gradientFlow 12s ease infinite;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -30,21 +32,35 @@
             overflow: hidden;
         }
 
-        /* Overlay Pola Geometris Islami Halus */
+        /* Bias Cahaya Latar yang Berputar Halus */
         #splash-screen::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cg fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath d="M0 0h100v100H0z"/%3E%3Cpath d="M50 0L0 50l50 50 50-50L50 0zm0 15.625l34.375 34.375L50 84.375 15.625 50 50 15.625zM0 0h10v10H0V0zm90 0h10v10H90V0zM0 90h10v10H0V90zm90 0h10v10H90V90z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
-            background-size: 80px 80px; /* Ukuran pola */
-            opacity: 0.8;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+            animation: lightRotate 25s linear infinite;
+            z-index: 0;
             pointer-events: none;
-            z-index: 1;
         }
 
+        /* Pola Islami Warna Emas (Gold) dengan Efek Bernapas */
+        #splash-screen::after {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            /* SVG Motif Geometris dengan warna Emas (d4af37) */
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23d4af37" fill-opacity="0.06"%3E%3Cpath d="M30 0l21.213 8.787L60 30l-8.787 21.213L30 60 8.787 51.213 0 30l8.787-21.213L30 0zm0 15a15 15 0 1 0 0 30 15 15 0 0 0 0-30z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            background-size: 90px 90px;
+            animation: patternBreathe 8s ease-in-out infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
         /* Kontainer Utama untuk Elemen */
         .splash-content {
             display: flex;
@@ -138,6 +154,26 @@
         }
 
         /* --- KEYFRAMES BARU UNTUK ANIMASI YANG LEBIH HALUS --- */
+
+        /* Animasi Pergerakan Warna Background */
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animasi Efek Cahaya Memutar */
+        @keyframes lightRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animasi Pola Bernapas (Zoom in/out & Redup/Terang) */
+        @keyframes patternBreathe {
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        
         @keyframes floatSlow {
             0% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-10px) rotate(1deg); } /* Gerakan rotasi halus */
