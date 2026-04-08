@@ -76,10 +76,10 @@
             margin-bottom: 40px; /* Jarak yang lebih baik */
         }
 
-       /* Bingkai Lingkaran diperbesar menyesuaikan logo (240px) */
+       /* Bingkai Lingkaran diperbesar menjadi 260px */
         .logo-frame {
-            width: 240px; 
-            height: 240px;
+            width: 260px; 
+            height: 260px;
             border-radius: 50%;
             background: rgba(0, 37, 26, 0.3);
             backdrop-filter: blur(10px);
@@ -90,29 +90,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px;
+            padding: 5px; /* Jarak dibuat lebih mepet agar logo lebih penuh */
             border: 1px solid rgba(212, 175, 55, 0.3);
             position: relative;
             z-index: 2;
         }
 
-        /* Logo Asli diperbesar ke 200px */
+        /* Logo Asli diperbesar ke 250px dan di-Zoom In */
         .splash-logo {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
             object-fit: contain;
+            /* Trik agar logo membesar menutupi ruang kosong di dalam file gambarnya */
+            transform: scale(1.1); 
             animation: floatSlow 6s ease-in-out infinite;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
         }
 
-        /* Animasi Orbit disesuaikan menjadi 250px agar membungkus bingkai */
+        /* Animasi Orbit disesuaikan menjadi 270px */
         .loader-orbit {
             position: absolute;
             top: -5px;
             left: -5px;
-            width: 250px; 
-            height: 250px;
+            width: 270px; 
+            height: 270px;
             border-radius: 50%;
             border: 2px solid transparent;
             border-top-color: rgba(212, 175, 55, 0.6);
@@ -121,12 +123,12 @@
             z-index: 1;
         }
 
-        /* Titik Bercahaya pada Orbit (Posisinya disesuaikan dengan lingkaran 250px) */
+        /* Titik Bercahaya pada Orbit disesuaikan untuk presisi 270px */
         .loader-orbit::before {
             content: '';
             position: absolute;
-            top: 35px; /* Digeser agar tetap menempel di garis lintasan */
-            right: 35px; /* Digeser agar tetap menempel di garis lintasan */
+            top: 39px; 
+            right: 39px; 
             width: 10px;
             height: 10px;
             background-color: #fce883;
