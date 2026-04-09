@@ -1,12 +1,16 @@
 {
-  "name": "TAMAN PENDIDIKAN AL-QUR'AN",
-  "short_name": "TPQ NURUL HAQ",
-  "description": "Aplikasi Portal TPQ Nurul Haq Pasuruan",
+  "name": "TPQ Nurul Haq - Taman Pendidikan Al-Qur'an",
+  "short_name": "TPQ Nurul Haq",
+  "description": "Aplikasi Portal Resmi TPQ Nurul Haq Pasuruan dengan Metode Qur'ani Sidogiri.",
+  "lang": "id-ID",
+  "dir": "ltr",
   "display": "standalone",
+  "orientation": "portrait",
   "scope": "/TPQ/",
   "start_url": "/TPQ/index.html",
-  "background_color": "#009688",
-  "theme_color": "#009688",
+  "background_color": "#002B24",
+  "theme_color": "#002B24",
+  "categories": ["education", "books", "productivity"],
   "icons": [
     {
       "src": "./logo-192.png",
