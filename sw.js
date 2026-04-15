@@ -1,5 +1,4 @@
-// Versi dinaikkan menjadi v5.1 untuk memicu update PWA
-const CACHE_VERSION = 'v6.0'; 
+const CACHE_VERSION = 'v7.0'; 
 const CACHE_NAME = 'musholla-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
