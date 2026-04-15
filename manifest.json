@@ -1,6 +1,6 @@
 {
   "name": "Super App Musholla Nurul Haq",
-  "short_name": "Musholla Nurul Haq",
+  "short_name": "Nurul Haq",
   "description": "Aplikasi Pusat Ibadah & Ilmu Agama",
   "start_url": "./",
   "display": "standalone",
@@ -16,6 +16,12 @@
     {
       "src": "./logo.png",
       "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./logo.png",
+      "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any"
     }
