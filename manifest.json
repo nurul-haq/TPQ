@@ -1,28 +1,21 @@
 {
-  "name": "TPQ Nurul Haq - Taman Pendidikan Al-Qur'an",
-  "short_name": "TPQ Nurul Haq",
-  "description": "Aplikasi Portal Resmi TPQ Nurul Haq Pasuruan dengan Metode Qur'ani Sidogiri.",
-  "lang": "id-ID",
-  "dir": "ltr",
+  "name": "Musholla Nurul Haq",
+  "short_name": "Nurul Haq",
+  "description": "Aplikasi Pusat Ibadah & Ilmu Agama",
+  "start_url": "./index.html",
   "display": "standalone",
-  "orientation": "portrait",
-  "scope": "/TPQ/",
-  "start_url": "/TPQ/index.html",
-  "background_color": "#002B24",
-  "theme_color": "#002B24",
-  "categories": ["education", "books", "productivity"],
+  "background_color": "#f4fdf8",
+  "theme_color": "#064e3b",
   "icons": [
     {
-      "src": "./logo-192.png",
+      "src": "https://drive.google.com/thumbnail?id=1PeZYgbYccFYwsMs2-NTI9YmDa764-zsE&sz=w500",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "./logo-512.png",
+      "src": "https://drive.google.com/thumbnail?id=1PeZYgbYccFYwsMs2-NTI9YmDa764-zsE&sz=w500",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
