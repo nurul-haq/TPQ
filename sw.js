@@ -2,7 +2,7 @@
 // importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
 // KUNCI UPDATE: Versi dinaikkan menjadi v5.0 untuk memaksa HP jamaah memuat tampilan Musholla yang baru
-const CACHE_VERSION = 'v5.0'; 
+const CACHE_VERSION = 'v5.1'; 
 const CACHE_NAME = 'musholla-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
