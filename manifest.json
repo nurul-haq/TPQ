@@ -2,7 +2,7 @@
   "name": "Musholla Nurul Haq",
   "short_name": "Nurul Haq",
   "description": "Aplikasi Pusat Ibadah & Ilmu Agama",
-  "start_url": "TPQ/index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#f4fdf8",
   "theme_color": "#064e3b",
