@@ -1,8 +1,8 @@
 {
-  "name": "Musholla Nurul Haq",
+  "name": "Super App Musholla Nurul Haq",
   "short_name": "Nurul Haq",
   "description": "Aplikasi Pusat Ibadah & Ilmu Agama",
-  "start_url": "./index.html",
+  "start_url": "/TPQ/index.html",
   "display": "standalone",
   "background_color": "#f4fdf8",
   "theme_color": "#064e3b",
@@ -16,6 +16,9 @@
       "src": "https://drive.google.com/thumbnail?id=1PeZYgbYccFYwsMs2-NTI9YmDa764-zsE&sz=w500",
       "sizes": "512x512",
       "type": "image/png"
+    }
+  ]
+}
     }
   ]
 }
