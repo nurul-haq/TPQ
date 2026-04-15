@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TPQ Nurul Haq</title>
     
+    <title>Super App Musholla Nurul Haq</title>
+    
+    <meta property="og:title" content="Musholla Nurul Haq">
+    <meta property="og:description" content="Aplikasi Layanan Informasi, Kas, Qurban, dan TPQ Musholla Nurul Haq Pasuruan">
+    <meta property="og:image" content="https://drive.google.com/thumbnail?id=1PeZYgbYccFYwsMs2-NTI9YmDa764-zsE&sz=w500">
+    <meta property="og:type" content="website">
+
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#002B24">
-    <link rel="icon" type="image/png" sizes="512x512" href="./logo-512.png">
+    <meta name="theme-color" content="#064e3b">
+    
+    <link rel="icon" type="image/png" sizes="512x512" href="https://drive.google.com/thumbnail?id=1PeZYgbYccFYwsMs2-NTI9YmDa764-zsE&sz=w500">
+    <link rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1PeZYgbYccFYwsMs2-NTI9YmDa764-zsE&sz=w500">
 
     <style>
         /* =========================================
@@ -16,8 +24,7 @@
         #splash-screen {
             position: fixed;
             inset: 0;
-            /* Latar belakang hijau gelap Islami yang solid dan bersih */
-            background-color: #002B24; 
+            background-color: #064e3b; /* Hijau Emerald Musholla */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -28,29 +35,25 @@
             font-family: 'Segoe UI', system-ui, Roboto, sans-serif;
         }
 
-        /* Pendaran Cahaya Halus di Latar Belakang */
         #splash-screen::before {
             content: '';
             position: absolute;
             width: 150vw;
             height: 150vw;
-            background: radial-gradient(circle, rgba(0, 150, 136, 0.12) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 60%);
             animation: pulseGlow 6s ease-in-out infinite alternate;
             pointer-events: none;
         }
 
-        /* Kontainer Utama yang muncul dengan transisi halus */
         .splash-content {
             position: relative;
             z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Animasi masuk meluncur ke atas */
             animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Kontainer Logo */
         .logo-wrapper {
             position: relative;
             width: 150px;
@@ -61,48 +64,44 @@
             align-items: center;
         }
 
-        /* Spinner Ring Minimalis Modern */
         .modern-spinner {
             position: absolute;
             inset: -12px;
             border-radius: 50%;
-            border: 2px solid rgba(212, 175, 55, 0.1);
-            border-top-color: #d4af37; /* Warna Emas */
+            border: 2px solid rgba(253, 224, 71, 0.1);
+            border-top-color: #facc15; /* Kuning Emas */
             animation: spinRing 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
         }
 
-        /* Logo Utama */
         .splash-logo {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            /* Animasi bernapas halus */
             animation: breatheLogo 3s ease-in-out infinite;
         }
 
-        /* Tipografi Premium */
         .brand-title {
             color: #ffffff;
             font-size: 26px;
-            font-weight: 800;
+            font-weight: 900;
             letter-spacing: 1.5px;
             margin: 0 0 6px 0;
             text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-align: center;
         }
 
         .brand-subtitle {
-            color: #d4af37; /* Warna Emas */
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 4px;
+            color: #facc15; 
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
             margin: 0;
             text-transform: uppercase;
             opacity: 0.9;
         }
 
-        /* Indikator Loading Dots Modern */
         .loading-dots {
             margin-top: 50px;
             display: flex;
@@ -112,7 +111,7 @@
         .loading-dots span {
             width: 8px;
             height: 8px;
-            background-color: #009688;
+            background-color: #10b981;
             border-radius: 50%;
             animation: bounceDots 1.4s infinite ease-in-out both;
         }
@@ -120,36 +119,13 @@
         .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
         .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
 
-        /* --- KUMPULAN ANIMASI --- */
-        @keyframes spinRing {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes spinRing { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes breatheLogo { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); } }
+        @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseGlow { 0% { transform: scale(0.9); opacity: 0.6; } 100% { transform: scale(1.1); opacity: 1; } }
+        @keyframes bounceDots { 0%, 80%, 100% { transform: scale(0); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
 
-        @keyframes breatheLogo {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6); }
-        }
-
-        @keyframes slideUpFade {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulseGlow {
-            0% { transform: scale(0.9); opacity: 0.6; }
-            100% { transform: scale(1.1); opacity: 1; }
-        }
-
-        @keyframes bounceDots {
-            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-
-        .fade-out {
-            opacity: 0;
-            visibility: hidden;
-        }
+        .fade-out { opacity: 0; visibility: hidden; }
 
         /* =========================================
            2. PENGATURAN DASAR & IFRAME (PWA)
@@ -173,7 +149,7 @@
             border: none; 
             display: block;
             z-index: 1;
-            background-color: #ffffff; /* Mencegah flash transparan */
+            background-color: #ffffff;
         }
 
         /* =========================================
@@ -198,71 +174,28 @@
             animation: slideUpBanner 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes slideUpBanner {
-            0% { transform: translateY(100%); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
+        @keyframes slideUpBanner { 0% { transform: translateY(100%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 
-        .banner-kiri {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
+        .banner-kiri { display: flex; align-items: center; gap: 15px; }
         .banner-kiri img {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0,150,136,0.15);
+            width: 48px; height: 48px; border-radius: 12px; object-fit: cover;
+            box-shadow: 0 4px 10px rgba(6, 78, 59, 0.15);
         }
-
-        .banner-teks h6 {
-            margin: 0 0 2px 0;
-            font-size: 1.05rem;
-            color: #1a202c;
-            font-weight: 700;
-        }
-
-        .banner-teks small {
-            color: #718096;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
+        .banner-teks h6 { margin: 0 0 2px 0; font-size: 1.05rem; color: #1a202c; font-weight: 700; }
+        .banner-teks small { color: #718096; font-size: 0.8rem; font-weight: 500; }
 
         #btnInstall {
-            background: #002B24;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            background: #064e3b;
+            color: white; border: none; padding: 10px 20px; border-radius: 12px;
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s ease;
         }
-
-        #btnInstall:active {
-            transform: scale(0.95);
-            background: #004d40;
-        }
+        #btnInstall:active { transform: scale(0.95); background: #047857; }
 
         #btnTutupBanner {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ffffff;
-            color: #4a5568;
-            border: 1px solid #e2e8f0;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: absolute; top: -8px; right: -8px; background: #ffffff; color: #4a5568;
+            border: 1px solid #e2e8f0; border-radius: 50%; width: 24px; height: 24px;
+            font-size: 12px; cursor: pointer; display: flex; justify-content: center;
+            align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -272,16 +205,14 @@
         <div class="splash-content">
             <div class="logo-wrapper">
                 <div class="modern-spinner"></div> 
-                <img src="./logo-192.png" alt="Logo TPQ" class="splash-logo">
+                <img src="https://drive.google.com/thumbnail?id=1PeZYgbYccFYwsMs2-NTI9YmDa764-zsE&sz=w500" alt="Logo Musholla" class="splash-logo">
             </div>
             
-            <h1 class="brand-title">TPQ Nurul Haq</h1>
-            <h2 class="brand-subtitle">Metode Qur'ani Sidogiri</h2>
+            <h1 class="brand-title">MUSHOLLA NURUL HAQ</h1>
+            <h2 class="brand-subtitle">Pusat Ibadah & Ilmu Agama</h2>
             
             <div class="loading-dots">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </div>
@@ -291,17 +222,17 @@
     <div id="installBanner">
         <button id="btnTutupBanner" onclick="document.getElementById('installBanner').style.display='none'">✕</button>
         <div class="banner-kiri">
-            <img src="./logo-192.png" alt="Logo TPQ">
+            <img src="https://drive.google.com/thumbnail?id=1PeZYgbYccFYwsMs2-NTI9YmDa764-zsE&sz=w500" alt="Logo">
             <div class="banner-teks">
-                <h6>TPQ Nurul Haq</h6>
-                <small>Aplikasi Pendidikan</small>
+                <h6>Nurul Haq</h6>
+                <small>Super App Jamaah</small>
             </div>
         </div>
         <button id="btnInstall">Install</button>
     </div>
     
     <script>
-        // 1. Injeksi Google Script Iframe
+        // 1. Injeksi Google Script Iframe (TIDAK DIUBAH SAMA SEKALI)
         const gasUrl = "https://script.google.com/macros/s/AKfycbxUkj-y3mppSeFACvJ-MVCELHw7P1VyFaCabxpj8q16UIL-SQaKO8ReoW23OuyuOGaH/exec";
         const params = window.location.search; 
         const waktuSekarang = new Date().getTime(); 
@@ -339,7 +270,7 @@
         window.addEventListener('appinstalled', () => {
             installBanner.style.display = 'none';
             deferredPrompt = null;
-            console.log('Aplikasi TPQ berhasil diinstal di HP!');
+            console.log('Aplikasi Musholla berhasil diinstal di HP!');
         });
 
         // 4. Fungsi Penutup Splash Screen Mulus
@@ -347,7 +278,6 @@
         const splash = document.getElementById('splash-screen');
 
         appFrame.onload = function() {
-            // Memberi waktu tambahan 1.5 detik agar animasi loading selesai dinikmati
             setTimeout(() => {
                 splash.classList.add('fade-out');
             }, 1500); 
