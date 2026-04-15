@@ -1,16 +1,15 @@
 // UNTUK SEMENTARA, ONESIGNAL KITA MATIKAN DULU AGAR FOKUS KE PWA MURNI
 // importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 
-// KUNCI UPDATE: Ganti angka ini setiap kali mengubah file (misal: v1.2, v1.3)
-const CACHE_VERSION = 'v4.4'; 
-const CACHE_NAME = 'tpq-cache-' + CACHE_VERSION;
+// KUNCI UPDATE: Versi dinaikkan menjadi v5.0 untuk memaksa HP jamaah memuat tampilan Musholla yang baru
+const CACHE_VERSION = 'v5.0'; 
+const CACHE_NAME = 'musholla-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
   './',
   './index.html',
-  './manifest.json',
-  './logo-192.png',
-  './logo-512.png'
+  './manifest.json'
+  // File logo lokal dihapus dari sini karena kita sudah menggunakan link Google Drive langsung
 ];
 
 self.addEventListener('install', (event) => {
@@ -24,14 +23,15 @@ self.addEventListener('install', (event) => {
   self.skipWaiting(); 
 });
 
-// Membersihkan "sampah" memori dari versi aplikasi yang lama
+// Membersihkan "sampah" memori dari versi aplikasi yang lama (Termasuk memori TPQ yang lama)
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME && cacheName.startsWith('tpq-cache-')) {
-            console.log('Menghapus versi aplikasi lama:', cacheName);
+          // Hapus semua cache lama, baik yang bernama 'tpq-cache' maupun 'musholla-cache' yang angkanya lebih kecil
+          if (cacheName !== CACHE_NAME && (cacheName.startsWith('musholla-cache-') || cacheName.startsWith('tpq-cache-'))) {
+            console.log('Menghapus memori aplikasi versi lama:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -46,11 +46,10 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
     }).catch(() => {
-      return new Response('Aplikasi TPQ membutuhkan koneksi internet untuk memuat data.', {
+      // Pesan otomatis saat HP jamaah tidak ada kuota/internet
+      return new Response('Aplikasi Musholla Nurul Haq membutuhkan koneksi internet untuk memuat data dari server.', {
         headers: { 'Content-Type': 'text/plain' }
       });
     })
   );
 });
-
-// Kode addEventListener('message') DIHAPUS karena PWA sekarang update otomatis
