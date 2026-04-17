@@ -1,4 +1,5 @@
-const CACHE_VERSION = 'v8.0'; 
+// Update versi 2 untuk test pop-up
+const CACHE_VERSION = 'v8.1'; 
 const CACHE_NAME = 'musholla-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
