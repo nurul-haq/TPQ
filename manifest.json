@@ -4,8 +4,9 @@
   "description": "Aplikasi Pusat Ibadah & Ilmu Agama",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#064e3b",
-  "theme_color": "#064e3b",
+  "orientation": "portrait",
+  "background_color": "#022c22",
+  "theme_color": "#022c22",
   "icons": [
     {
       "src": "./logo.png",
