@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v7.2'; 
+const CACHE_VERSION = 'v8.0'; 
 const CACHE_NAME = 'musholla-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
