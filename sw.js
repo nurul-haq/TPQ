@@ -1,12 +1,12 @@
-// Update versi 2 untuk test pop-up
-const CACHE_VERSION = 'v8.1'; 
+// File: sw.js (Mesin PWA & Update)
+const CACHE_VERSION = 'v8.2'; // <-- Versi dinaikkan untuk memancing update 
 const CACHE_NAME = 'musholla-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
-  './logo.png'  // <--- Logo lokal dimasukkan kembali ke memori
+  './logo.png' 
 ];
 
 self.addEventListener('install', (event) => {
@@ -16,7 +16,8 @@ self.addEventListener('install', (event) => {
       return cache.addAll(urlsToCache);
     })
   );
-  self.skipWaiting(); 
+  // ⚠️ self.skipWaiting(); DIHAPUS DARI SINI
+  // Agar sistem sabar menunggu jamaah menekan tombol "Update" di Pop-Up
 });
 
 self.addEventListener('activate', (event) => {
@@ -47,9 +48,9 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// --- KODE TAMBAHAN UNTUK FITUR UPDATE NOTIFIKASI ---
+// --- MESIN PENERIMA PERINTAH DARI TOMBOL UPDATE ---
 self.addEventListener('message', function(event) {
   if (event.data === 'skipWaiting') {
-    self.skipWaiting();
+    self.skipWaiting(); // Barulah dieksekusi saat tombol diklik
   }
 });
