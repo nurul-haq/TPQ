@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v7.1'; 
+const CACHE_VERSION = 'v7.2'; 
 const CACHE_NAME = 'musholla-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
@@ -44,4 +44,11 @@ self.addEventListener('fetch', (event) => {
       });
     })
   );
+});
+
+// --- KODE TAMBAHAN UNTUK FITUR UPDATE NOTIFIKASI ---
+self.addEventListener('message', function(event) {
+  if (event.data === 'skipWaiting') {
+    self.skipWaiting();
+  }
 });
