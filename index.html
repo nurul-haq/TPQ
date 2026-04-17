@@ -197,6 +197,41 @@
             font-size: 12px; cursor: pointer; display: flex; justify-content: center;
             align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
+        // --- MESIN PENDETEKSI UPDATE APLIKASI ---
+  let pekerjaBaru;
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+      reg.addEventListener('updatefound', () => {
+        pekerjaBaru = reg.installing;
+        pekerjaBaru.addEventListener('statechange', () => {
+          // Jika ada versi baru dan terinstal di background
+          if (pekerjaBaru.state === 'installed' && navigator.serviceWorker.controller) {
+            // Tampilkan Pop-Up Update!
+            document.getElementById('wadahUpdateAplikasi').style.display = 'block';
+          }
+        });
+      });
+    });
+
+    // Jika Service Worker berhasil diganti, muat ulang halaman agar versi baru tampil
+    let sedangRefresh;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (sedangRefresh) return;
+      window.location.reload();
+      sedangRefresh = true;
+    });
+  }
+
+  // Aksi ketika tombol "Update" di klik jamaah
+  document.getElementById('btnRefreshUpdate').addEventListener('click', function() {
+    document.getElementById('wadahUpdateAplikasi').style.display = 'none';
+    // Kirim perintah ke sw.js untuk mengaktifkan versi baru
+    if (pekerjaBaru) {
+      pekerjaBaru.postMessage('skipWaiting');
+    }
+  });
     </style>
 </head>
 <body>
@@ -283,5 +318,21 @@
             }, 1500); 
         };
     </script>
+    <div id="wadahUpdateAplikasi" class="position-fixed bottom-0 start-50 translate-middle-x p-3 animate__animated animate__bounceInUp" style="z-index: 9999; display: none; width: 90%; max-width: 400px;">
+  <div class="rounded-4 shadow-lg p-3 d-flex align-items-center justify-content-between" style="background: linear-gradient(135deg, #022c22 0%, #064e3b 100%); border: 1px solid #facc15;">
+    <div class="d-flex align-items-center">
+      <div class="bg-warning text-dark rounded-circle d-flex justify-content-center align-items-center me-3 shadow-sm" style="width: 35px; height: 35px;">
+        <i class="fas fa-sync-alt fa-spin"></i>
+      </div>
+      <div>
+        <h6 class="mb-0 fw-bold text-white" style="font-size: 0.9rem;">Update Tersedia!</h6>
+        <span class="text-white opacity-75" style="font-size: 0.7rem;">Versi baru siap dipasang.</span>
+      </div>
+    </div>
+    <button id="btnRefreshUpdate" class="btn btn-warning btn-sm rounded-pill fw-bold shadow-sm px-3" style="font-size: 0.75rem;">
+      <i class="fas fa-download me-1"></i> Update
+    </button>
+  </div>
+</div>
 </body>
 </html>
