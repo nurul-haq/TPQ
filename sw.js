@@ -1,5 +1,5 @@
 // File: sw.js (Mesin PWA & Update)
-const CACHE_VERSION = 'v9.0'; // <-- Versi dinaikkan untuk memancing update 
+const CACHE_VERSION = 'v10.0'; // <-- Versi dinaikkan untuk memancing update 
 const CACHE_NAME = 'musholla-cache-' + CACHE_VERSION;
 
 const urlsToCache = [
